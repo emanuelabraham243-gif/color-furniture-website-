@@ -15,9 +15,9 @@ export const site = {
   // NEEDS CLIENT CONFIRMATION: exact branch addresses/names for both locations,
   // and the workshop address, once provided.
   social: {
-    facebook: "", // NEEDS CLIENT CONFIRMATION — link pending
-    instagram: "", // NEEDS CLIENT CONFIRMATION — link pending
-    tiktok: "", // NEEDS CLIENT CONFIRMATION — link pending
+    facebook: "https://web.facebook.com/profile.php?id=100065746470661",
+    instagram: "https://www.instagram.com/colorfurniture?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==",
+    tiktok: "https://www.tiktok.com/@color_furniture?is_from_webapp=1&sender_device=pc",
   },
   // The client has 3 pinned TikTok videos that should be embedded on the
   // site. Add each video's URL here once shared (e.g.
