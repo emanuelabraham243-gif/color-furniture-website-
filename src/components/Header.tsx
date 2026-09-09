@@ -4,12 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import { categories } from "@/data/categories";
 import { site, whatsappLink } from "@/data/site";
 import { cx } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/products", label: "Products" },
+  { href: "/catalog", label: "Shop" },
   { href: "/about", label: "About" },
+  { href: "/showroom", label: "Showroom" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -17,16 +19,18 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [prevPathname, setPrevPathname] = useState(pathname);
 
   const isHome = pathname === "/";
   const solid = scrolled || !isHome || open;
 
-  // Close the mobile menu on navigation. Adjusting state during render
-  // (rather than in an effect) avoids an extra render pass after each route change.
+  // Close menus on navigation. Adjusting state during render (rather than in
+  // an effect) avoids an extra render pass after each route change.
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setOpen(false);
+    setCollectionsOpen(false);
   }
 
   useEffect(() => {
@@ -50,6 +54,40 @@ export default function Header() {
           </Link>
 
           <nav className="hidden items-center gap-9 md:flex">
+            <div
+              className="group relative"
+              onMouseEnter={() => setCollectionsOpen(true)}
+              onMouseLeave={() => setCollectionsOpen(false)}
+            >
+              <Link
+                href="/collections"
+                className={cx(
+                  "text-[13px] uppercase tracking-[0.12em] transition-colors",
+                  solid ? "text-charcoal hover:text-wood-dark" : "text-ivory hover:text-beige"
+                )}
+              >
+                Collections
+              </Link>
+              <div
+                className={cx(
+                  "absolute left-1/2 top-full grid w-[420px] -translate-x-1/2 grid-cols-2 gap-x-6 gap-y-3 bg-ivory p-6 shadow-xl transition-all duration-200",
+                  collectionsOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
+                )}
+              >
+                {categories.map((c) => (
+                  <Link key={c.slug} href={`/collections/${c.slug}`} className="text-[13px] text-charcoal-soft hover:text-wood-dark">
+                    {c.name}
+                  </Link>
+                ))}
+                <Link
+                  href="/collections"
+                  className="col-span-2 mt-2 border-t border-line pt-3 text-[12px] uppercase tracking-[0.12em] text-wood-dark"
+                >
+                  View all collections →
+                </Link>
+              </div>
+            </div>
+
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -120,6 +158,13 @@ export default function Header() {
         )}
       >
         <nav className="flex h-full flex-col gap-1 overflow-y-auto px-6 py-8">
+          <p className="eyebrow mb-2 text-[11px] text-charcoal-soft/60">Collections</p>
+          {categories.map((c) => (
+            <Link key={c.slug} href={`/collections/${c.slug}`} className="border-b border-line py-3 font-display text-xl text-charcoal">
+              {c.name}
+            </Link>
+          ))}
+          <p className="eyebrow mb-2 mt-6 text-[11px] text-charcoal-soft/60">Menu</p>
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="border-b border-line py-3 font-display text-xl text-charcoal">
               {link.label}

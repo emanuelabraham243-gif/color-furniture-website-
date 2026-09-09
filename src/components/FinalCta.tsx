@@ -6,10 +6,10 @@ export default function FinalCta({
   eyebrow = "Start Here",
   title,
   description,
-  primaryHref = "/products",
-  primaryLabel = "Explore Products",
-  secondaryHref = "/contact",
-  secondaryLabel = "Contact Us",
+  primaryHref = "/catalog",
+  primaryLabel = "Explore Collection",
+  secondaryHref = "/showroom",
+  secondaryLabel = "Visit Our Showroom",
   imageSeed,
 }: {
   eyebrow?: string;

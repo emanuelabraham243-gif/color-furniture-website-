@@ -26,11 +26,11 @@ export default function VisitUs() {
             <li>{site.phoneDisplay}</li>
           </ul>
           <div className="mt-9 flex flex-wrap gap-4">
-            <Button href={`/contact`} size="lg">
+            <Button href="/showroom" size="lg">
               Plan Your Visit
             </Button>
-            <Button href={site.phoneHref} variant="secondary" size="lg">
-              Call Us
+            <Button href="/contact" variant="secondary" size="lg">
+              Request More Information
             </Button>
           </div>
         </Reveal>

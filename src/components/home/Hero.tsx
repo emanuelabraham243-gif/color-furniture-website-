@@ -19,8 +19,8 @@ export default function Hero() {
         </h1>
         <p className="mt-7 max-w-md text-[16px] leading-relaxed text-ivory/75">{site.description}</p>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <Button href="/products" variant="light" size="lg">
-            Explore Products
+          <Button href="/catalog" variant="light" size="lg">
+            Explore Collection
           </Button>
           <Button
             href={whatsappLink("Hi, I'd like to ask about your furniture.")}

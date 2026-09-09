@@ -28,15 +28,20 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="eyebrow text-[11px] text-ivory/50">Products</p>
+            <p className="eyebrow text-[11px] text-ivory/50">Shop</p>
             <ul className="mt-4 space-y-2.5 text-[14px] text-ivory/75">
-              {categories.slice(0, 6).map((c) => (
+              {categories.slice(0, 5).map((c) => (
                 <li key={c.slug}>
-                  <Link href="/products" className="hover:text-ivory">
+                  <Link href={`/collections/${c.slug}`} className="hover:text-ivory">
                     {c.name}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/catalog" className="hover:text-ivory">
+                  All Products
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -46,6 +51,11 @@ export default function Footer() {
               <li>
                 <Link href="/about" className="hover:text-ivory">
                   About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/showroom" className="hover:text-ivory">
+                  Showroom
                 </Link>
               </li>
               <li>

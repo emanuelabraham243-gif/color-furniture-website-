@@ -13,8 +13,8 @@ export default function CategoryRail() {
           title="Eight Categories. One Workshop."
           description="Every piece is manufactured in-house in Addis Ababa — mix categories freely, or furnish a whole room from a single line."
         />
-        <Link href="/products" className="link-underline whitespace-nowrap text-[13px] uppercase tracking-[0.12em] text-wood-dark">
-          View All Products →
+        <Link href="/collections" className="link-underline whitespace-nowrap text-[13px] uppercase tracking-[0.12em] text-wood-dark">
+          View All Collections →
         </Link>
       </Reveal>
 

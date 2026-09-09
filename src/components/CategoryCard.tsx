@@ -10,7 +10,7 @@ export default function CategoryCard({
   size?: "sm" | "md" | "lg";
 }) {
   return (
-    <Link href="/products" className="group relative block overflow-hidden bg-charcoal">
+    <Link href={`/collections/${category.slug}`} className="group relative block overflow-hidden bg-charcoal">
       <div
         className={
           size === "lg"
