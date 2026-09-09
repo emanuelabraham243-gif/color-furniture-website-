@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsAppFab from "@/components/WhatsAppFab";
 import { site } from "@/data/site";
 import "./globals.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -43,11 +45,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
-      <body className="flex min-h-screen flex-col bg-cream text-ink antialiased">
+    <html lang="en" className={`${fraunces.variable} ${manrope.variable} h-full`}>
+      <body className="flex min-h-full flex-col bg-ivory text-ink antialiased">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <WhatsAppFab />
       </body>
     </html>
   );

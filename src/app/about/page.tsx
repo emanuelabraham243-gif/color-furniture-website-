@@ -1,82 +1,102 @@
 import type { Metadata } from "next";
-import { site, whatsappLink } from "@/data/site";
-import { WhatsAppGlyph } from "@/components/icons";
+import Reveal from "@/components/Reveal";
+import FinalCta from "@/components/FinalCta";
+import CoverImage from "@/components/CoverImage";
+import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Color Furniture is an Addis Ababa furniture manufacturer with two branches, a workshop, and import/export and project supply capability.",
+  description:
+    "Color Furniture is an Addis Ababa furniture manufacturer with two branches, a workshop, and import/export and project supply capability.",
 };
 
-const capabilities = [
+const stats = [
+  { value: "2", label: "Branches" },
+  { value: "1", label: "Workshop" },
+  { value: "In-House", label: "Manufacturing" },
+  { value: "Yes", label: "Import & Export" },
+];
+
+const pillars = [
   {
     title: "Manufacturing",
-    description: "Furniture is built in our own workshop, not sourced and resold.",
+    text: "Furniture is built in our own workshop, not sourced and resold.",
+    seed: "color-about-manufacturing",
   },
   {
     title: "Retail Branches",
-    description: "Two branches in Addis Ababa where our furniture is on display and available for purchase.",
+    text: "Two branches in Addis Ababa where our furniture is on display and available for purchase.",
+    seed: "color-about-branches",
   },
   {
-    title: "Import & Export",
-    description: "We import and export furniture and materials alongside our own production.",
-  },
-  {
-    title: "Project & Infrastructure Supply",
-    description: "We supply furniture and infrastructure services to other businesses and projects.",
+    title: "Import, Export & Project Supply",
+    text: "Alongside our own production, we import and export furniture and materials, and supply furniture and infrastructure services to other businesses and projects.",
+    seed: "color-about-supply",
   },
 ];
 
 export default function AboutPage() {
   return (
     <div>
-      <section className="border-b border-line bg-paper">
-        <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 sm:py-20">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange-dark">About Us</p>
-          <h1 className="mt-2 font-display text-3xl font-bold text-ink sm:text-4xl">
-            A furniture manufacturer, growing across Addis Ababa.
+      <section className="relative flex h-[75vh] min-h-[480px] items-end overflow-hidden bg-charcoal">
+        <CoverImage seed="color-about-hero" label={site.name} eyebrow="Our Story" className="opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-charcoal/40" />
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 md:px-10">
+          <p className="eyebrow mb-5 text-[11px] font-medium uppercase text-beige">Our Story</p>
+          <h1 className="max-w-2xl font-display text-4xl leading-[1.1] text-ivory md:text-6xl">
+            A Furniture Manufacturer, Growing Across Addis Ababa.
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-[15.5px] leading-relaxed text-charcoal-soft">
-            Color Furniture operates two branches and a dedicated workshop in Addis Ababa. We
-            manufacture our own furniture, supply and support other furniture businesses and
-            infrastructure projects, and import and export furniture and materials — with the
-            organization continuing to grow.
-          </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <h2 className="text-center font-display text-2xl font-bold text-ink sm:text-3xl">What We Do</h2>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {capabilities.map((c) => (
-            <div key={c.title} className="rounded-2xl border border-line bg-paper p-7">
-              <h3 className="font-display text-lg font-semibold text-ink">{c.title}</h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-charcoal-soft">{c.description}</p>
+      <section className="mx-auto max-w-3xl px-6 py-24 text-center md:py-32">
+        <Reveal>
+          <p className="font-display text-2xl leading-relaxed text-charcoal text-balance md:text-3xl">
+            Color Furniture operates two branches and a dedicated workshop in Addis Ababa.
+          </p>
+          <p className="mt-8 text-[15px] leading-relaxed text-charcoal-soft/75">
+            We manufacture our own furniture rather than simply reselling it. Alongside our branch
+            collections, we import and export furniture and materials, and supply furniture and
+            infrastructure services for other businesses and projects — with the organization
+            continuing to grow.
+          </p>
+        </Reveal>
+      </section>
+
+      <section className="border-y border-line bg-cream">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-6 px-6 py-16 md:grid-cols-4 md:px-10">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 80} className="text-center">
+              <p className="font-display text-4xl text-wood-dark md:text-5xl">{s.value}</p>
+              <p className="mt-2 text-[12px] uppercase tracking-[0.1em] text-charcoal-soft/70">{s.label}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
+        <div className="space-y-24 md:space-y-32">
+          {pillars.map((pillar, i) => (
+            <div key={pillar.title} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+              <Reveal className={`relative aspect-[4/5] overflow-hidden ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                <CoverImage seed={pillar.seed} label={pillar.title} eyebrow={site.name} />
+              </Reveal>
+              <Reveal className={i % 2 === 1 ? "lg:order-1" : ""}>
+                <span className="font-display text-sm text-wood">{`0${i + 1}`}</span>
+                <h2 className="mt-4 font-display text-3xl text-charcoal text-balance md:text-4xl">{pillar.title}</h2>
+                <p className="mt-6 max-w-md text-[15px] leading-relaxed text-charcoal-soft/80">{pillar.text}</p>
+              </Reveal>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-line bg-paper">
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 px-5 py-16 text-center sm:px-8 sm:py-20">
-          <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">Want to work with us?</h2>
-          <p className="max-w-lg text-[14.5px] text-charcoal-soft">
-            Whether you&apos;re furnishing a home or need furniture for a larger project, get in
-            touch and we&apos;ll help.
-          </p>
-          <a
-            href={whatsappLink("Hi, I'd like to know more about Color Furniture.")}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full bg-green px-6 py-3.5 text-[13.5px] font-semibold text-paper hover:bg-green-dark"
-          >
-            <WhatsAppGlyph width={16} height={16} />
-            Chat With Us
-          </a>
-          <a href={site.phoneHref} className="text-[13.5px] font-medium text-charcoal-soft hover:text-ink">
-            or call {site.phoneDisplay}
-          </a>
-        </div>
-      </section>
+      <FinalCta
+        eyebrow="Visit Us"
+        title="Want to Work With Us?"
+        description="Whether you're furnishing a home or need furniture for a larger project, get in touch and we'll help."
+        imageSeed="color-about-cta"
+      />
     </div>
   );
 }

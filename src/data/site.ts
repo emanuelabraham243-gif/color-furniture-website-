@@ -1,5 +1,6 @@
 export const site = {
   name: "Color Furniture",
+  instagramHandle: "@colorfurniture",
   tagline: "Furniture, Crafted for Every Home.",
   description:
     "Color Furniture is an Addis Ababa furniture manufacturer and retailer — sofas, dining, bedroom and storage pieces, built locally and backed by import/export and project supply capability.",

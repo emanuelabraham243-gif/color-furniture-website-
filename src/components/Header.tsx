@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { cx } from "@/lib/utils";
 import { site, whatsappLink } from "@/data/site";
-import { MenuIcon, PhoneIcon, WhatsAppGlyph, XIcon } from "./icons";
+import { cx } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -17,93 +15,129 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  const isHome = pathname === "/";
+  const solid = scrolled || !isHome || open;
+
+  // Close the mobile menu on navigation. Adjusting state during render
+  // (rather than in an effect) avoids an extra render pass after each route change.
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setOpen(false);
+  }
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-cream/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" onClick={() => setOpen(false)}>
-          <Logo />
-        </Link>
+    <>
+      <header
+        className={cx(
+          "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
+          solid ? "bg-ivory/95 shadow-[0_1px_0_0_var(--color-line)] backdrop-blur-sm" : "bg-transparent"
+        )}
+      >
+        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10">
+          <Link href="/" className="shrink-0">
+            <Logo />
+          </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => {
-            const active = pathname === link.href;
-            return (
+          <nav className="hidden items-center gap-9 md:flex">
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cx(
-                  "text-[14px] font-medium transition-colors",
-                  active ? "text-orange-dark" : "text-charcoal-soft hover:text-ink"
+                  "text-[13px] uppercase tracking-[0.12em] transition-colors",
+                  solid ? "text-charcoal hover:text-wood-dark" : "text-ivory hover:text-beige"
                 )}
               >
                 {link.label}
               </Link>
-            );
-          })}
-        </nav>
+            ))}
+          </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <a
-            href={site.phoneHref}
-            className="flex items-center gap-1.5 text-[13.5px] font-medium text-charcoal-soft hover:text-ink"
+          <div className="hidden items-center gap-5 md:flex">
+            <a
+              href={site.phoneHref}
+              className={cx(
+                "text-[13px] transition-colors",
+                solid ? "text-charcoal-soft hover:text-ink" : "text-ivory/85 hover:text-ivory"
+              )}
+            >
+              {site.phoneDisplay}
+            </a>
+            <a
+              href={whatsappLink("Hi, I'd like to ask about your furniture.")}
+              target="_blank"
+              rel="noreferrer"
+              className={cx(
+                "border px-5 py-2.5 text-[12px] uppercase tracking-[0.14em] transition-colors",
+                solid
+                  ? "border-charcoal text-charcoal hover:bg-charcoal hover:text-ivory"
+                  : "border-ivory/70 text-ivory hover:bg-ivory hover:text-charcoal"
+              )}
+            >
+              WhatsApp Us
+            </a>
+          </div>
+
+          <button
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
           >
-            <PhoneIcon width={15} height={15} />
-            {site.phoneDisplay}
-          </a>
-          <a
-            href={whatsappLink("Hi, I'd like to ask about your furniture.")}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full bg-green px-4 py-2.5 text-[13px] font-semibold text-paper transition-colors hover:bg-green-dark"
-          >
-            <WhatsAppGlyph width={15} height={15} />
-            WhatsApp Us
-          </a>
+            <span
+              className={cx(
+                "h-px w-6 transition-transform duration-300",
+                solid ? "bg-charcoal" : "bg-ivory",
+                open && "translate-y-[3.5px] rotate-45"
+              )}
+            />
+            <span
+              className={cx(
+                "h-px w-6 transition-transform duration-300",
+                solid ? "bg-charcoal" : "bg-ivory",
+                open && "-translate-y-[3.5px] -rotate-45"
+              )}
+            />
+          </button>
         </div>
-
-        <button
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center text-ink md:hidden"
-        >
-          {open ? <XIcon width={22} height={22} /> : <MenuIcon width={22} height={22} />}
-        </button>
-      </div>
+      </header>
 
       <div
         className={cx(
-          "overflow-hidden border-t border-line bg-cream transition-[max-height] duration-300 md:hidden",
-          open ? "max-h-96" : "max-h-0"
+          "fixed inset-x-0 top-20 bottom-0 z-40 bg-ivory transition-transform duration-500 md:hidden",
+          open ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <nav className="flex flex-col gap-1 px-5 py-4">
+        <nav className="flex h-full flex-col gap-1 overflow-y-auto px-6 py-8">
           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-paper"
-            >
+            <Link key={link.href} href={link.href} className="border-b border-line py-3 font-display text-xl text-charcoal">
               {link.label}
             </Link>
           ))}
-          <a href={site.phoneHref} className="flex items-center gap-2 px-3 py-2.5 text-[15px] font-medium text-charcoal-soft">
-            <PhoneIcon width={16} height={16} />
+          <a href={site.phoneHref} className="mt-6 py-2 text-[14px] text-charcoal-soft">
             {site.phoneDisplay}
           </a>
           <a
             href={whatsappLink("Hi, I'd like to ask about your furniture.")}
             target="_blank"
             rel="noreferrer"
-            className="mt-2 flex items-center justify-center gap-2 rounded-full bg-green px-4 py-3 text-[14px] font-semibold text-paper"
+            className="mt-2 flex items-center justify-center gap-2 bg-charcoal px-5 py-3.5 text-[13px] uppercase tracking-[0.14em] text-ivory"
           >
-            <WhatsAppGlyph width={16} height={16} />
             WhatsApp Us
           </a>
         </nav>
       </div>
-    </header>
+    </>
   );
 }

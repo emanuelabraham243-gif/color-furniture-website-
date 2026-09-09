@@ -1,36 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --color-cream: #f7f0e3;
-  --color-paper: #fffdf8;
-  --color-orange: #ec8b2e;
-  --color-orange-dark: #d96a1f;
-  --color-gold: #f0b429;
+  --color-ivory: #faf7f2;
+  --color-cream: #f3ede2;
+  --color-beige: #e8ddc8;
+  --color-taupe: #b3a08c;
+  --color-taupe-dark: #8a7a68;
+  --color-wood: #c8791f;
+  --color-wood-dark: #a5621a;
+  --color-charcoal: #211d1a;
+  --color-charcoal-soft: #34302b;
+  --color-ink: #17140f;
+  --color-line: #ddd2bf;
+  --color-paper: #fffdf9;
   --color-green: #2f7d38;
   --color-green-dark: #1d5c28;
-  --color-green-light: #6fa744;
-  --color-ink: #17140f;
-  --color-charcoal: #2b2620;
-  --color-charcoal-soft: #4a4238;
-  --color-line: #e4d7bf;
 
-  --font-display: var(--font-poppins);
-  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
 }
 
 @theme inline {
+  --color-ivory: var(--color-ivory);
   --color-cream: var(--color-cream);
-  --color-paper: var(--color-paper);
-  --color-orange: var(--color-orange);
-  --color-orange-dark: var(--color-orange-dark);
-  --color-gold: var(--color-gold);
-  --color-green: var(--color-green);
-  --color-green-dark: var(--color-green-dark);
-  --color-green-light: var(--color-green-light);
-  --color-ink: var(--color-ink);
+  --color-beige: var(--color-beige);
+  --color-taupe: var(--color-taupe);
+  --color-taupe-dark: var(--color-taupe-dark);
+  --color-wood: var(--color-wood);
+  --color-wood-dark: var(--color-wood-dark);
   --color-charcoal: var(--color-charcoal);
   --color-charcoal-soft: var(--color-charcoal-soft);
+  --color-ink: var(--color-ink);
   --color-line: var(--color-line);
+  --color-paper: var(--color-paper);
+  --color-green: var(--color-green);
+  --color-green-dark: var(--color-green-dark);
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -46,7 +50,7 @@ body {
 }
 
 body {
-  background: var(--color-cream);
+  background: var(--color-ivory);
   color: var(--color-ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -54,25 +58,62 @@ body {
 }
 
 ::selection {
-  background: var(--color-orange);
-  color: var(--color-paper);
+  background: var(--color-wood);
+  color: var(--color-ivory);
 }
 
 .font-display {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), ui-serif, Georgia, serif;
 }
 
-/* Brand mark gradient, reused wherever the real logo file isn't dropped in yet */
-.brand-gradient {
-  background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-gold) 45%, var(--color-green) 100%);
+.eyebrow {
+  letter-spacing: 0.22em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  * {
+    scroll-behavior: auto;
+  }
+}
+
+.link-underline {
+  position: relative;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .text-balance {
   text-wrap: balance;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    scroll-behavior: auto;
-  }
 }
