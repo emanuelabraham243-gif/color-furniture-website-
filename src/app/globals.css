@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --color-cream: #f7f0e3;
+  --color-paper: #fffdf8;
+  --color-orange: #ec8b2e;
+  --color-orange-dark: #d96a1f;
+  --color-gold: #f0b429;
+  --color-green: #2f7d38;
+  --color-green-dark: #1d5c28;
+  --color-green-light: #6fa744;
+  --color-ink: #17140f;
+  --color-charcoal: #2b2620;
+  --color-charcoal-soft: #4a4238;
+  --color-line: #e4d7bf;
+
+  --font-display: var(--font-poppins);
+  --font-sans: var(--font-inter);
+}
+
+@theme inline {
+  --color-cream: var(--color-cream);
+  --color-paper: var(--color-paper);
+  --color-orange: var(--color-orange);
+  --color-orange-dark: var(--color-orange-dark);
+  --color-gold: var(--color-gold);
+  --color-green: var(--color-green);
+  --color-green-dark: var(--color-green-dark);
+  --color-green-light: var(--color-green-light);
+  --color-ink: var(--color-ink);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-soft: var(--color-charcoal-soft);
+  --color-line: var(--color-line);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-orange);
+  color: var(--color-paper);
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Brand mark gradient, reused wherever the real logo file isn't dropped in yet */
+.brand-gradient {
+  background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-gold) 45%, var(--color-green) 100%);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto;
+  }
+}
