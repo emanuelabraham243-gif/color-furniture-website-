@@ -1,17 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import type { Product } from "@/data/products";
 import { formatPrice } from "@/data/products";
 import { cx } from "@/lib/utils";
 import CoverImage from "./CoverImage";
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const badge = product.isNew
-    ? "New"
-    : product.isBestSeller
-    ? "Best Seller"
-    : product.compareAtPrice
-    ? "Sale"
-    : null;
+  const t = useT();
+  const badgeKey = product.isNew ? "New" : product.isBestSeller ? "Best Seller" : product.compareAtPrice ? "Sale" : null;
 
   return (
     <Link href={`/product/${product.slug}`} className="group block">
@@ -19,30 +17,30 @@ export default function ProductCard({ product }: { product: Product }) {
         <CoverImage
           seed={product.images[0]}
           label={product.name}
-          eyebrow={product.category.replace("-", " ")}
+          eyebrow={t(`categories.${product.category}.name`)}
           className="transition-transform duration-700 ease-out group-hover:scale-[1.06]"
         />
         {product.images[1] && (
           <CoverImage
             seed={product.images[1]}
             label={product.name}
-            eyebrow={product.category.replace("-", " ")}
+            eyebrow={t(`categories.${product.category}.name`)}
             className="opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
           />
         )}
-        {badge && (
+        {badgeKey && (
           <span
             className={cx(
-              "absolute left-3 top-3 bg-ivory/95 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-charcoal",
-              badge === "Sale" && "bg-wood text-ivory"
+              "absolute left-3 top-3 bg-snow/95 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-noir",
+              badgeKey === "Sale" && "bg-wood text-snow"
             )}
           >
-            {badge}
+            {t(`badges.${badgeKey}`)}
           </span>
         )}
         {product.availability === "Out of Stock" && (
-          <span className="absolute inset-x-0 bottom-0 bg-charcoal/85 py-1.5 text-center text-[10px] font-medium uppercase tracking-[0.14em] text-ivory">
-            Out of Stock
+          <span className="absolute inset-x-0 bottom-0 bg-noir/85 py-1.5 text-center text-[10px] font-medium uppercase tracking-[0.14em] text-snow">
+            {t("availability.Out of Stock")}
           </span>
         )}
       </div>

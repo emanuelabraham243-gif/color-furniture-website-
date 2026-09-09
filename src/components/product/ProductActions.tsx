@@ -7,8 +7,10 @@ import { site, whatsappLink } from "@/data/site";
 import { availabilityTone, cx } from "@/lib/utils";
 import Button from "@/components/Button";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 export default function ProductActions({ product }: { product: Product }) {
+  const t = useT();
   const [color, setColor] = useState(product.colors[0]?.name ?? "");
 
   const orderMessage = `Hello ${site.name}, I'd like to order the ${product.name}${
@@ -21,7 +23,7 @@ export default function ProductActions({ product }: { product: Product }) {
     <div>
       <p className="mt-1 text-2xl text-charcoal">{formatPrice(product.price)}</p>
       <p className={cx("mt-2 text-[13px] font-medium uppercase tracking-[0.08em]", availabilityTone(product.availability))}>
-        {product.availability}
+        {t(`availability.${product.availability}`)}
         {product.leadTime && product.availability === "Made to Order" && (
           <span className="ml-1 font-normal normal-case text-charcoal-soft/60">· {product.leadTime}</span>
         )}
@@ -30,7 +32,7 @@ export default function ProductActions({ product }: { product: Product }) {
       {product.colors.length > 0 && (
         <div className="mt-8">
           <p className="text-[12px] font-medium uppercase tracking-[0.1em] text-charcoal">
-            Color: <span className="font-normal normal-case text-charcoal-soft/70">{color}</span>
+            {t("productActions.color")} <span className="font-normal normal-case text-charcoal-soft/70">{color}</span>
           </p>
           <div className="mt-3 flex flex-wrap gap-2.5">
             {product.colors.map((c) => (
@@ -60,11 +62,11 @@ export default function ProductActions({ product }: { product: Product }) {
           className="w-full !bg-[#25D366] !text-white hover:!bg-[#1ebc59]"
         >
           <WhatsAppIcon className="h-4 w-4" />
-          Order on WhatsApp
+          {t("productActions.orderWhatsapp")}
         </Button>
         <div className="grid grid-cols-2 gap-3">
           <Button href="/showroom" variant="secondary" size="lg" className="w-full">
-            Visit a Branch
+            {t("productActions.visitBranch")}
           </Button>
           <Button
             href={whatsappLink(infoMessage)}
@@ -74,7 +76,7 @@ export default function ProductActions({ product }: { product: Product }) {
             size="lg"
             className="w-full border border-line"
           >
-            Request Info
+            {t("productActions.requestInfo")}
           </Button>
         </div>
       </div>

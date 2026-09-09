@@ -1,20 +1,24 @@
+"use client";
+
 import { categories } from "@/data/categories";
 import CategoryCard from "@/components/CategoryCard";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 const featuredSlugs = ["sofa", "bed", "dining-table", "wardrobe", "tv-stand"];
 
 export default function CategoryGrid() {
+  const t = useT();
   const items = featuredSlugs.map((slug) => categories.find((c) => c.slug === slug)).filter(Boolean);
 
   return (
     <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
       <Reveal>
         <SectionHeading
-          eyebrow="Shop by Room"
-          title="Every Room, Considered"
-          description="From the living room to the bedroom, each category is built to work together — or stand entirely on its own."
+          eyebrow={t("home.categoryGrid.eyebrow")}
+          title={t("home.categoryGrid.title")}
+          description={t("home.categoryGrid.description")}
         />
       </Reveal>
 

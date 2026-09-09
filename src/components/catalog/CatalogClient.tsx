@@ -7,18 +7,14 @@ import type { Availability, Product } from "@/data/products";
 import { allColors, allMaterials, formatPrice } from "@/data/products";
 import type { Category } from "@/data/categories";
 import ProductCard from "@/components/ProductCard";
+import OrderForm from "@/components/OrderForm";
 import { cx } from "@/lib/utils";
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 type SortKey = "featured" | "newest" | "price-asc" | "price-desc";
 
 const availabilityOptions: Availability[] = ["In Stock", "Made to Order", "Out of Stock"];
-
-const sortLabels: Record<SortKey, string> = {
-  featured: "Featured",
-  newest: "Newest",
-  "price-asc": "Price: Low to High",
-  "price-desc": "Price: High to Low",
-};
+const sortKeys: SortKey[] = ["featured", "newest", "price-asc", "price-desc"];
 
 export default function CatalogClient({
   products,
@@ -27,6 +23,7 @@ export default function CatalogClient({
   products: Product[];
   categories: Category[];
 }) {
+  const t = useT();
   const searchParams = useSearchParams();
   const initialSort = (searchParams.get("sort") as SortKey) || "featured";
   const initialCategory = searchParams.get("category") || "all";
@@ -108,21 +105,22 @@ export default function CatalogClient({
     return (
       <div className="mx-auto max-w-[1440px] px-6 pb-28 pt-32 md:px-10 md:pt-40">
         <div className="border-b border-line pb-10">
-          <p className="eyebrow mb-4 text-[11px] font-medium uppercase text-wood-dark">The Full Collection</p>
-          <h1 className="font-display text-4xl text-charcoal md:text-5xl">Shop All Furniture</h1>
+          <p className="eyebrow mb-4 text-[11px] font-medium uppercase text-wood-dark">{t("catalog.eyebrow")}</p>
+          <h1 className="font-display text-4xl text-charcoal md:text-5xl">{t("catalog.title")}</h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-4 py-32 text-center">
-          <p className="font-display text-2xl text-charcoal">The full catalog is coming soon</p>
-          <p className="max-w-md text-[14px] leading-relaxed text-charcoal-soft/70">
-            Individual product photos and pricing are being added. In the meantime, browse by category or ask
-            us directly.
-          </p>
+          <p className="font-display text-2xl text-charcoal">{t("catalog.comingSoonTitle")}</p>
+          <p className="max-w-md text-[14px] leading-relaxed text-charcoal-soft/70">{t("catalog.comingSoonText")}</p>
           <Link
             href="/collections"
             className="mt-2 border border-charcoal px-6 py-3 text-[12px] uppercase tracking-[0.12em] text-charcoal hover:bg-charcoal hover:text-ivory"
           >
-            Browse Categories
+            {t("catalog.browseCategories")}
           </Link>
+        </div>
+
+        <div className="mx-auto max-w-2xl pb-16">
+          <OrderForm />
         </div>
       </div>
     );
@@ -132,16 +130,16 @@ export default function CatalogClient({
     <div className="mx-auto max-w-[1440px] px-6 pb-28 pt-32 md:px-10 md:pt-40">
       <div className="flex flex-col gap-6 border-b border-line pb-10 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="eyebrow mb-4 text-[11px] font-medium uppercase text-wood-dark">The Full Collection</p>
-          <h1 className="font-display text-4xl text-charcoal md:text-5xl">Shop All Furniture</h1>
+          <p className="eyebrow mb-4 text-[11px] font-medium uppercase text-wood-dark">{t("catalog.eyebrow")}</p>
+          <h1 className="font-display text-4xl text-charcoal md:text-5xl">{t("catalog.title")}</h1>
         </div>
         <div className="relative w-full max-w-sm">
           <input
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search sofas, tables, chairs…"
-            aria-label="Search products"
+            placeholder={t("catalog.searchPlaceholder")}
+            aria-label={t("catalog.searchPlaceholder")}
             className="w-full border border-line bg-ivory px-4 py-3 text-[14px] text-charcoal placeholder:text-charcoal-soft/50 focus:border-charcoal focus:outline-none"
           />
         </div>
@@ -152,7 +150,7 @@ export default function CatalogClient({
           onClick={() => setFiltersOpen(true)}
           className="border border-charcoal px-5 py-2.5 text-[12px] uppercase tracking-[0.12em] text-charcoal"
         >
-          Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+          {t("catalog.filters")} {activeFilterCount > 0 && `(${activeFilterCount})`}
         </button>
         <SortSelect value={sort} onChange={setSort} />
       </div>
@@ -165,13 +163,13 @@ export default function CatalogClient({
           )}
         >
           <div className="mb-6 flex items-center justify-between md:hidden">
-            <span className="font-display text-xl text-charcoal">Filters</span>
+            <span className="font-display text-xl text-charcoal">{t("catalog.filters")}</span>
             <button onClick={() => setFiltersOpen(false)} aria-label="Close filters" className="text-2xl leading-none">
               ×
             </button>
           </div>
 
-          <FilterGroup title="Category">
+          <FilterGroup title={t("catalog.category")}>
             <label className="flex cursor-pointer items-center gap-2 py-1.5 text-[14px] text-charcoal-soft">
               <input
                 type="radio"
@@ -180,7 +178,7 @@ export default function CatalogClient({
                 onChange={() => setCategory("all")}
                 className="accent-wood-dark"
               />
-              All Categories
+              {t("catalog.allCategories")}
             </label>
             {categories.map((c) => (
               <label key={c.slug} className="flex cursor-pointer items-center gap-2 py-1.5 text-[14px] text-charcoal-soft">
@@ -191,12 +189,12 @@ export default function CatalogClient({
                   onChange={() => setCategory(c.slug)}
                   className="accent-wood-dark"
                 />
-                {c.name}
+                {t(`categories.${c.slug}.name`)}
               </label>
             ))}
           </FilterGroup>
 
-          <FilterGroup title="Price Range">
+          <FilterGroup title={t("catalog.priceRange")}>
             <div className="flex items-center gap-3 text-[13px] text-charcoal-soft">
               <input
                 type="number"
@@ -223,7 +221,7 @@ export default function CatalogClient({
             </p>
           </FilterGroup>
 
-          <FilterGroup title="Material">
+          <FilterGroup title={t("catalog.material")}>
             {allMaterials.map((m) => (
               <label key={m} className="flex cursor-pointer items-center gap-2 py-1.5 text-[14px] text-charcoal-soft">
                 <input
@@ -237,7 +235,7 @@ export default function CatalogClient({
             ))}
           </FilterGroup>
 
-          <FilterGroup title="Color">
+          <FilterGroup title={t("catalog.color")}>
             <div className="flex flex-wrap gap-2">
               {allColors.map((c) => (
                 <button
@@ -256,7 +254,7 @@ export default function CatalogClient({
             </div>
           </FilterGroup>
 
-          <FilterGroup title="Availability" last>
+          <FilterGroup title={t("catalog.availability")} last>
             {availabilityOptions.map((a) => (
               <label key={a} className="flex cursor-pointer items-center gap-2 py-1.5 text-[14px] text-charcoal-soft">
                 <input
@@ -265,7 +263,7 @@ export default function CatalogClient({
                   onChange={() => toggle(availability, a, setAvailability)}
                   className="accent-wood-dark"
                 />
-                {a}
+                {t(`availability.${a}`)}
               </label>
             ))}
           </FilterGroup>
@@ -274,34 +272,34 @@ export default function CatalogClient({
             onClick={resetFilters}
             className="mt-8 text-[12px] uppercase tracking-[0.12em] text-wood-dark underline underline-offset-4"
           >
-            Reset Filters
+            {t("catalog.resetFilters")}
           </button>
 
           <button
             onClick={() => setFiltersOpen(false)}
             className="mt-8 w-full bg-charcoal py-3 text-[12px] uppercase tracking-[0.12em] text-ivory md:hidden"
           >
-            Show {filtered.length} Results
+            {t("catalog.showResults", { n: filtered.length })}
           </button>
         </aside>
 
         <div>
           <div className="mb-8 hidden items-center justify-between md:flex">
             <p className="text-[13px] text-charcoal-soft/70">
-              {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+              {t(filtered.length === 1 ? "catalog.piece" : "catalog.pieces", { n: filtered.length })}
             </p>
             <SortSelect value={sort} onChange={setSort} />
           </div>
 
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-32 text-center">
-              <p className="font-display text-2xl text-charcoal">No pieces match those filters</p>
-              <p className="mt-3 text-[14px] text-charcoal-soft/70">Try widening your search or resetting filters.</p>
+              <p className="font-display text-2xl text-charcoal">{t("catalog.noMatch")}</p>
+              <p className="mt-3 text-[14px] text-charcoal-soft/70">{t("catalog.tryWidening")}</p>
               <button
                 onClick={resetFilters}
                 className="mt-6 border border-charcoal px-6 py-3 text-[12px] uppercase tracking-[0.12em] text-charcoal"
               >
-                Reset Filters
+                {t("catalog.resetFilters")}
               </button>
             </div>
           ) : (
@@ -327,17 +325,18 @@ function FilterGroup({ title, children, last = false }: { title: string; childre
 }
 
 function SortSelect({ value, onChange }: { value: SortKey; onChange: (v: SortKey) => void }) {
+  const t = useT();
   return (
     <label className="flex items-center gap-2 text-[13px] text-charcoal-soft">
-      <span className="hidden sm:inline">Sort by</span>
+      <span className="hidden sm:inline">{t("catalog.sortBy")}</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as SortKey)}
         className="border border-line bg-ivory px-3 py-2.5 text-[13px] text-charcoal focus:border-charcoal focus:outline-none"
       >
-        {(Object.keys(sortLabels) as SortKey[]).map((key) => (
+        {sortKeys.map((key) => (
           <option key={key} value={key}>
-            {sortLabels[key]}
+            {t(`catalog.sort.${key}`)}
           </option>
         ))}
       </select>

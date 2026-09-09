@@ -12,8 +12,8 @@ const variants: Record<Variant, string> = {
   primary: "bg-charcoal text-ivory hover:bg-wood-dark",
   secondary: "bg-transparent text-charcoal border border-charcoal hover:bg-charcoal hover:text-ivory",
   ghost: "bg-transparent text-charcoal hover:text-wood-dark underline-offset-4 hover:underline",
-  "outline-light": "bg-transparent text-ivory border border-ivory/60 hover:bg-ivory hover:text-charcoal",
-  light: "bg-ivory text-charcoal border border-ivory hover:bg-transparent hover:text-ivory",
+  "outline-light": "bg-transparent text-snow border border-snow/60 hover:bg-snow hover:text-noir",
+  light: "bg-snow text-noir border border-snow hover:bg-transparent hover:text-snow",
 };
 
 const sizes: Record<Size, string> = {

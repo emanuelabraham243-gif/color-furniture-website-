@@ -4,23 +4,27 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
 import { categories } from "@/data/categories";
 import { site, whatsappLink } from "@/data/site";
 import { cx } from "@/lib/utils";
-
-const navLinks = [
-  { href: "/catalog", label: "Shop" },
-  { href: "/about", label: "About" },
-  { href: "/showroom", label: "Showroom" },
-  { href: "/contact", label: "Contact" },
-];
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 export default function Header() {
   const pathname = usePathname();
+  const t = useT();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [prevPathname, setPrevPathname] = useState(pathname);
+
+  const navLinks = [
+    { href: "/catalog", label: t("nav.shop") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/showroom", label: t("nav.showroom") },
+    { href: "/contact", label: t("nav.contact") },
+  ];
 
   const isHome = pathname === "/";
   const solid = scrolled || !isHome || open;
@@ -66,7 +70,7 @@ export default function Header() {
                   solid ? "text-charcoal hover:text-wood-dark" : "text-ivory hover:text-beige"
                 )}
               >
-                Collections
+                {t("nav.collections")}
               </Link>
               <div
                 className={cx(
@@ -76,14 +80,14 @@ export default function Header() {
               >
                 {categories.map((c) => (
                   <Link key={c.slug} href={`/collections/${c.slug}`} className="text-[13px] text-charcoal-soft hover:text-wood-dark">
-                    {c.name}
+                    {t(`categories.${c.slug}.name`)}
                   </Link>
                 ))}
                 <Link
                   href="/collections"
                   className="col-span-2 mt-2 border-t border-line pt-3 text-[12px] uppercase tracking-[0.12em] text-wood-dark"
                 >
-                  View all collections →
+                  {t("nav.viewAllCollections")}
                 </Link>
               </div>
             </div>
@@ -102,7 +106,9 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-5 md:flex">
+          <div className="hidden items-center gap-4 md:flex">
+            <ThemeToggle tone={solid ? "default" : "on-dark"} />
+            <LanguageToggle tone={solid ? "default" : "on-dark"} />
             <a
               href={site.phoneHref}
               className={cx(
@@ -123,7 +129,7 @@ export default function Header() {
                   : "border-ivory/70 text-ivory hover:bg-ivory hover:text-charcoal"
               )}
             >
-              WhatsApp Us
+              {t("common.whatsappUs")}
             </a>
           </div>
 
@@ -158,28 +164,34 @@ export default function Header() {
         )}
       >
         <nav className="flex h-full flex-col gap-1 overflow-y-auto px-6 py-8">
-          <p className="eyebrow mb-2 text-[11px] text-charcoal-soft/60">Collections</p>
+          <p className="eyebrow mb-2 text-[11px] text-charcoal-soft/60">{t("nav.collections")}</p>
           {categories.map((c) => (
             <Link key={c.slug} href={`/collections/${c.slug}`} className="border-b border-line py-3 font-display text-xl text-charcoal">
-              {c.name}
+              {t(`categories.${c.slug}.name`)}
             </Link>
           ))}
-          <p className="eyebrow mb-2 mt-6 text-[11px] text-charcoal-soft/60">Menu</p>
+          <p className="eyebrow mb-2 mt-6 text-[11px] text-charcoal-soft/60">{t("nav.menu")}</p>
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="border-b border-line py-3 font-display text-xl text-charcoal">
               {link.label}
             </Link>
           ))}
-          <a href={site.phoneHref} className="mt-6 py-2 text-[14px] text-charcoal-soft">
-            {site.phoneDisplay}
-          </a>
+          <div className="mt-6 flex items-center justify-between">
+            <a href={site.phoneHref} className="py-2 text-[14px] text-charcoal-soft">
+              {site.phoneDisplay}
+            </a>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <LanguageToggle />
+            </div>
+          </div>
           <a
             href={whatsappLink("Hi, I'd like to ask about your furniture.")}
             target="_blank"
             rel="noreferrer"
             className="mt-2 flex items-center justify-center gap-2 bg-charcoal px-5 py-3.5 text-[13px] uppercase tracking-[0.14em] text-ivory"
           >
-            WhatsApp Us
+            {t("common.whatsappUs")}
           </a>
         </nav>
       </div>

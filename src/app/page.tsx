@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Hero from "@/components/home/Hero";
 import CategoryRail from "@/components/home/CategoryRail";
@@ -10,8 +12,10 @@ import ProductRail from "@/components/ProductRail";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { products } from "@/data/products";
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 export default function Home() {
+  const t = useT();
   const newArrivals = products.filter((p) => p.isNew).slice(0, 8);
   const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 8);
 
@@ -25,12 +29,12 @@ export default function Home() {
         <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
           <Reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <SectionHeading
-              eyebrow="Just Landed"
-              title="New Arrivals"
-              description="The latest pieces to arrive at our Addis Ababa branches, fresh off the workshop floor."
+              eyebrow={t("home.newArrivals.eyebrow")}
+              title={t("home.newArrivals.title")}
+              description={t("home.newArrivals.description")}
             />
             <Link href="/catalog?sort=newest" className="link-underline whitespace-nowrap text-[13px] uppercase tracking-[0.12em] text-wood-dark">
-              Shop New Arrivals →
+              {t("home.newArrivals.link")}
             </Link>
           </Reveal>
           <div className="mt-12">
@@ -44,12 +48,12 @@ export default function Home() {
           <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
             <Reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
               <SectionHeading
-                eyebrow="Customer Favorites"
-                title="Best Sellers"
-                description="The pieces our customers return to us for, again and again."
+                eyebrow={t("home.bestSellers.eyebrow")}
+                title={t("home.bestSellers.title")}
+                description={t("home.bestSellers.description")}
               />
               <Link href="/catalog?sort=featured" className="link-underline whitespace-nowrap text-[13px] uppercase tracking-[0.12em] text-wood-dark">
-                Shop Best Sellers →
+                {t("home.bestSellers.link")}
               </Link>
             </Reveal>
             <div className="mt-12">
@@ -68,9 +72,9 @@ export default function Home() {
       <InstagramGallery />
 
       <FinalCta
-        eyebrow="Ready When You Are"
-        title="Let's Furnish Something Beautiful."
-        description="Browse our product categories online, or come see the furniture in person at one of our Addis Ababa branches — our team is ready to help."
+        eyebrow={t("home.finalCta.eyebrow")}
+        title={t("home.finalCta.title")}
+        description={t("home.finalCta.description")}
         imageSeed="color-final-cta"
       />
     </>

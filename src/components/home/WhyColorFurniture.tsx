@@ -1,38 +1,25 @@
+"use client";
+
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-
-const reasons = [
-  {
-    n: "01",
-    title: "Manufacturing",
-    text: "Furniture is built in our own workshop, not sourced and resold.",
-  },
-  {
-    n: "02",
-    title: "Retail Branches",
-    text: "Two branches in Addis Ababa where our furniture is on display and available for purchase.",
-  },
-  {
-    n: "03",
-    title: "Import & Export",
-    text: "We import and export furniture and materials alongside our own production.",
-  },
-  {
-    n: "04",
-    title: "Project & Infrastructure Supply",
-    text: "We supply furniture and infrastructure services to other businesses and projects.",
-  },
-];
+import { useT } from "@/lib/i18n/LanguageProvider";
 
 export default function WhyColorFurniture() {
+  const t = useT();
+  const reasons = [0, 1, 2, 3].map((i) => ({
+    n: `0${i + 1}`,
+    title: t(`home.why.reasons.${i}.title`),
+    text: t(`home.why.reasons.${i}.text`),
+  }));
+
   return (
     <section className="border-y border-line bg-cream">
       <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <SectionHeading
-            eyebrow="Why Color Furniture"
-            title="Built on Manufacturing, Not Just Retail"
-            description="Color Furniture operates two branches and a dedicated workshop in Addis Ababa, with the organization continuing to grow."
+            eyebrow={t("home.why.eyebrow")}
+            title={t("home.why.title")}
+            description={t("home.why.description")}
           />
         </Reveal>
 

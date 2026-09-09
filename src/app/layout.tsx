@@ -3,6 +3,8 @@ import { Fraunces, Manrope } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import { themeInitScript } from "@/components/ThemeToggle";
+import { languageInitScript, LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -45,12 +47,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${manrope.variable} h-full`}>
+    <html lang="en" suppressHydrationWarning className={`${fraunces.variable} ${manrope.variable} h-full`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: languageInitScript }} />
+      </head>
       <body className="flex min-h-full flex-col bg-ivory text-ink antialiased">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFab />
+        <LanguageProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppFab />
+        </LanguageProvider>
       </body>
     </html>
   );

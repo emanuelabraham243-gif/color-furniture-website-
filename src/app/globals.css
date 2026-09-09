@@ -15,9 +15,45 @@
   --color-paper: #fffdf9;
   --color-green: #2f7d38;
   --color-green-dark: #1d5c28;
+  /* Fixed (non-flipping) pair for decorative dark-image bands — hero
+     sections, footer, final CTAs — that should stay dark regardless of
+     the light/dark toggle, since they sit over photography, not page chrome. */
+  --color-noir: #17140f;
+  --color-snow: #faf7f2;
+  color-scheme: light;
 
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-manrope);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-ivory: #15130f;
+    --color-cream: #1f1b16;
+    --color-beige: #3a332a;
+    --color-taupe: #8a7a68;
+    --color-taupe-dark: #b3a08c;
+    --color-charcoal: #f0ece3;
+    --color-charcoal-soft: #cbc2b4;
+    --color-ink: #f7f3ec;
+    --color-line: #3a332a;
+    --color-paper: #221e19;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-ivory: #15130f;
+  --color-cream: #1f1b16;
+  --color-beige: #3a332a;
+  --color-taupe: #8a7a68;
+  --color-taupe-dark: #b3a08c;
+  --color-charcoal: #f0ece3;
+  --color-charcoal-soft: #cbc2b4;
+  --color-ink: #f7f3ec;
+  --color-line: #3a332a;
+  --color-paper: #221e19;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -35,6 +71,8 @@
   --color-paper: var(--color-paper);
   --color-green: var(--color-green);
   --color-green-dark: var(--color-green-dark);
+  --color-noir: var(--color-noir);
+  --color-snow: var(--color-snow);
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -55,6 +93,7 @@ body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
