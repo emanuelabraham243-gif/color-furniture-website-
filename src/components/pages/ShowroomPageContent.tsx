@@ -11,9 +11,7 @@ const galleryImages = ["color-branch-1", "color-branch-2", "color-branch-3", "co
 
 export default function ShowroomPageContent() {
   const t = useT();
-  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-    `${site.address.plusCode} Addis Ababa Ethiopia`
-  )}&output=embed`;
+  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.mapsQuery)}&output=embed`;
 
   const experienceSteps = [0, 1, 2].map((i) => ({
     n: `0${i + 1}`,
@@ -50,6 +48,17 @@ export default function ShowroomPageContent() {
                 <dd className="mt-2">
                   <a href={site.phoneHref} className="link-underline">
                     {site.phoneDisplay}
+                  </a>
+                  {site.additionalPhones.length > 0 && (
+                    <p className="mt-1 text-[13px] text-charcoal-soft/70">{site.additionalPhones.join(" · ")}</p>
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[11px] font-medium uppercase tracking-[0.1em] text-charcoal-soft/50">{t("showroom.email")}</dt>
+                <dd className="mt-2">
+                  <a href={`mailto:${site.email}`} className="link-underline">
+                    {site.email}
                   </a>
                 </dd>
               </div>

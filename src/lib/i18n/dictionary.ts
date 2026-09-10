@@ -225,6 +225,7 @@ export const dictionary = {
       chatWhatsapp: "Chat on WhatsApp",
       fastest: "Fastest way to reach us",
       callDirect: "Call us directly",
+      emailUs: "Email us",
       getDirections: "Get Directions →",
       followTiktok: "Follow Us on TikTok",
       videoComingSoon: "Video {n} — coming soon",
@@ -236,6 +237,7 @@ export const dictionary = {
       planVisit: "Plan Your Visit",
       address: "Address",
       phone: "Phone",
+      email: "Email",
       whatToExpectEyebrow: "What to Expect",
       whatToExpectTitle: "Visiting Color Furniture",
       steps: [
@@ -541,6 +543,7 @@ export const dictionary = {
       chatWhatsapp: "በዋትስአፕ ይወያዩ",
       fastest: "ፈጣኑ የመገናኛ መንገድ",
       callDirect: "በቀጥታ ይደውሉ",
+      emailUs: "በኢሜል ያግኙን",
       getDirections: "አቅጣጫ ያግኙ →",
       followTiktok: "በቲክቶክ ይከታተሉን",
       videoComingSoon: "ቪዲዮ {n} — በቅርቡ ይመጣል",
@@ -552,6 +555,7 @@ export const dictionary = {
       planVisit: "ጉብኝትዎን ያቅዱ",
       address: "አድራሻ",
       phone: "ስልክ",
+      email: "ኢሜል",
       whatToExpectEyebrow: "ምን እንደሚጠብቅዎት",
       whatToExpectTitle: "ኮለር ፈርኒቸርን መጎብኘት",
       steps: [

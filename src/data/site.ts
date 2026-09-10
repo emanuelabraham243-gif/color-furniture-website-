@@ -8,13 +8,16 @@ export const site = {
   phoneDisplay: "+251 91 122 9324",
   phoneHref: "tel:+251911229324",
   whatsappNumber: "251911229324",
+  // Additional lines from the company's registered profile document — kept
+  // separate from the primary WhatsApp number above since it's unconfirmed
+  // which of these is WhatsApp-enabled.
+  additionalPhones: ["0913545454", "0963424242", "0944312145"],
+  email: "sgfurniture2010@gmail.com",
   address: {
-    line1: "XQQ6+32W, Near Chirkos",
-    line2: "Addis Ababa, Ethiopia",
-    plusCode: "XQQ6+32W",
+    line1: "Gotera, Kirkos Sub-City, Woreda 03",
+    line2: "House No. 512-513, Addis Ababa, Ethiopia",
+    mapsQuery: "Gotera Kirkos Sub City Addis Ababa Ethiopia",
   },
-  // NEEDS CLIENT CONFIRMATION: exact branch addresses/names for both locations,
-  // and the workshop address, once provided.
   social: {
     facebook: "https://web.facebook.com/profile.php?id=100065746470661",
     instagram: "https://www.instagram.com/colorfurniture?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==",
@@ -34,5 +37,5 @@ export function whatsappLink(message: string) {
 }
 
 export function mapsLink() {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address.plusCode + " Addis Ababa Ethiopia")}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address.mapsQuery)}`;
 }

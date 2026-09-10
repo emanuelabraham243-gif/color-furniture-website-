@@ -41,9 +41,7 @@ function SocialLink({
 
 export default function ContactPageContent() {
   const t = useT();
-  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-    `${site.address.plusCode} Addis Ababa Ethiopia`
-  )}&output=embed`;
+  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.mapsQuery)}&output=embed`;
 
   return (
     <div className="mx-auto max-w-[1440px] px-6 pb-28 pt-32 md:px-10 md:pt-40">
@@ -80,6 +78,25 @@ export default function ContactPageContent() {
             <div>
               <p className="font-display text-[15px] font-semibold text-ink">{site.phoneDisplay}</p>
               <p className="text-[13px] text-charcoal-soft">{t("contact.callDirect")}</p>
+              {site.additionalPhones.length > 0 && (
+                <p className="mt-1 text-[12px] text-charcoal-soft/70">{site.additionalPhones.join(" · ")}</p>
+              )}
+            </div>
+          </a>
+
+          <a
+            href={`mailto:${site.email}`}
+            className="flex items-center gap-4 border border-line bg-paper px-6 py-5 transition-colors hover:border-wood"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream text-wood-dark">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 6h16v12H4z" />
+                <path d="m4 7 8 6 8-6" />
+              </svg>
+            </span>
+            <div>
+              <p className="font-display text-[15px] font-semibold text-ink">{site.email}</p>
+              <p className="text-[13px] text-charcoal-soft">{t("contact.emailUs")}</p>
             </div>
           </a>
 
