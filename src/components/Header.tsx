@@ -133,27 +133,31 @@ export default function Header() {
             </a>
           </div>
 
-          <button
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          >
-            <span
-              className={cx(
-                "h-px w-6 transition-transform duration-300",
-                solid ? "bg-charcoal" : "bg-ivory",
-                open && "translate-y-[3.5px] rotate-45"
-              )}
-            />
-            <span
-              className={cx(
-                "h-px w-6 transition-transform duration-300",
-                solid ? "bg-charcoal" : "bg-ivory",
-                open && "-translate-y-[3.5px] -rotate-45"
-              )}
-            />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle tone={solid ? "default" : "on-dark"} />
+            <LanguageToggle tone={solid ? "default" : "on-dark"} />
+            <button
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5"
+            >
+              <span
+                className={cx(
+                  "h-px w-6 transition-transform duration-300",
+                  solid ? "bg-charcoal" : "bg-ivory",
+                  open && "translate-y-[3.5px] rotate-45"
+                )}
+              />
+              <span
+                className={cx(
+                  "h-px w-6 transition-transform duration-300",
+                  solid ? "bg-charcoal" : "bg-ivory",
+                  open && "-translate-y-[3.5px] -rotate-45"
+                )}
+              />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -176,15 +180,9 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <div className="mt-6 flex items-center justify-between">
-            <a href={site.phoneHref} className="py-2 text-[14px] text-charcoal-soft">
-              {site.phoneDisplay}
-            </a>
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
-              <LanguageToggle />
-            </div>
-          </div>
+          <a href={site.phoneHref} className="mt-6 py-2 text-[14px] text-charcoal-soft">
+            {site.phoneDisplay}
+          </a>
           <a
             href={whatsappLink("Hi, I'd like to ask about your furniture.")}
             target="_blank"
