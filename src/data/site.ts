@@ -23,12 +23,12 @@ export const site = {
     instagram: "https://www.instagram.com/colorfurniture?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==",
     tiktok: "https://www.tiktok.com/@color_furniture?is_from_webapp=1&sender_device=pc",
   },
-  // The client has 3 pinned TikTok videos that should be embedded on the
-  // site. Add each video's URL here once shared (e.g.
-  // "https://www.tiktok.com/@colorfurniture/video/1234567890123456789") —
-  // the Contact page embeds up to 3 automatically and shows a "coming soon"
-  // placeholder while this stays empty.
-  tiktokVideos: [] as string[],
+  // The client's 3 pinned TikTok videos, embedded on the Contact page.
+  tiktokVideos: [
+    "https://www.tiktok.com/@color_furniture/video/7608508202879061255",
+    "https://www.tiktok.com/@color_furniture/video/7623101821573254407",
+    "https://www.tiktok.com/@color_furniture/video/7677197378897644808",
+  ] as string[],
 } as const;
 
 export function whatsappLink(message: string) {
